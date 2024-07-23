@@ -15,7 +15,6 @@ public class Error {
         this.message = message;
     }
 
-
     public void printInfo() {
         System.out.println(active);
         System.out.println(status);
