@@ -24,6 +24,5 @@ public class Battery {
         first.exchange(second);
         System.out.println("First." + first.about());
         System.out.println("Second." + second.about());
-        System.out.println("Second." + second.about());
     }
 }
