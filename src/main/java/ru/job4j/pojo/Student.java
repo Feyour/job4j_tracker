@@ -2,6 +2,8 @@ package ru.job4j.pojo;
 
 public class Student {
     private String name;
+    private String group;
+    private int receiptDate;
 
     public String getName() {
         return name;
@@ -27,6 +29,4 @@ public class Student {
         this.receiptDate = receiptDate;
     }
 
-    private String group;
-    private int receiptDate;
 }
