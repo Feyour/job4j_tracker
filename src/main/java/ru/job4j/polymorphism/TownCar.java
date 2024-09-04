@@ -22,6 +22,11 @@ public class TownCar implements Vehicle {
         System.out.println("Стандартная тормозная система");
     }
 
+    @Override
+    public void chargeBattery() {
+        Vehicle.super.chargeBattery();
+    }
+
     public static void main(String[] args) {
         Vehicle townCar = new TownCar();
         townCar.changeGear();
