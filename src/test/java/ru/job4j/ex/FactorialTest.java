@@ -18,4 +18,12 @@ class FactorialTest {
         assertThat(exception.getMessage()).isEqualTo("Number could not be less than 0");
     }
 
+    @Test
+    public void whenNotException() {
+        Factorial factorial = new Factorial();
+        int result = factorial.calc(10);
+        int expected = 3628800;
+        assertThat(result).isEqualTo(expected);
+    }
+
 }
