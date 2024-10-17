@@ -1,6 +1,9 @@
 package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.Collection;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TrackerTest {
@@ -30,8 +33,14 @@ public class TrackerTest {
         Item second = new Item("Second");
         tracker.add(first);
         tracker.add(second);
-        Item result = tracker.findAll()[0];
-        assertThat(result.getName()).isEqualTo(first.getName());
+        Collection<Item> result = tracker.findAll();
+        boolean found = false;
+        for (Item item : result) {
+            if (item.getName().equals(first.getName())) {
+                found = true;
+            }
+        }
+        assertThat(found).isTrue();
     }
 
     @Test
@@ -44,8 +53,8 @@ public class TrackerTest {
         tracker.add(new Item("First"));
         tracker.add(new Item("Second"));
         tracker.add(new Item("First"));
-        Item[] result = tracker.findByName(first.getName());
-        assertThat(result.length).isEqualTo(3);
+        Collection<Item> result = tracker.findByName(first.getName());
+        assertThat(result.size()).isEqualTo(3);
     }
 
     @Test
@@ -58,8 +67,11 @@ public class TrackerTest {
         tracker.add(new Item("First"));
         tracker.add(new Item("Second"));
         tracker.add(new Item("First"));
-        Item[] result = tracker.findByName(second.getName());
-        assertThat(result[1].getName()).isEqualTo(second.getName());
+
+        Collection<Item> result = tracker.findByName(second.getName());
+        for (Item item : result) {
+            assertThat(item.getName()).isEqualTo(second.getName());
+        }
     }
 
     @Test
