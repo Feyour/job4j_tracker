@@ -2,13 +2,17 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class Tracker {
-    Collection<Item> collection = new ArrayList<>();
+    private final List<Item> collection = new ArrayList<>();
 
     public Item add(Item item) {
         collection.add(item);
-        return item;
+        for (Item result : collection) {
+            return result;
+        }
+        return null;
     }
 
     public Item findById(int id) {
@@ -32,7 +36,7 @@ public class Tracker {
                 result.add(item);
             }
         }
-        return result;
+        return List.copyOf(result);
     }
 
     public int indexOf(int id) {
