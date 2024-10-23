@@ -6,26 +6,21 @@ import java.util.List;
 
 public class Tracker {
     private final List<Item> collection = new ArrayList<>();
+    private int ids = 1;
 
     public Item add(Item item) {
+        item.setId(ids++);
         collection.add(item);
-        for (Item result : collection) {
-            return result;
-        }
-        return null;
+        return item;
     }
 
     public Item findById(int id) {
-        for (Item item : collection) {
-            if (item.getId() == id) {
-                return item;
-            }
-        }
-        return null;
+        int index = indexOf(id);
+        return index != -1 ? collection.get(index) : null;
     }
 
-    public Collection<Item> findAll() {
-        return collection;
+    public List<Item> findAll() {
+        return new ArrayList<>(collection);
 
     }
 
@@ -36,16 +31,14 @@ public class Tracker {
                 result.add(item);
             }
         }
-        return List.copyOf(result);
+        return result;
     }
 
     public int indexOf(int id) {
-        int index = 0;
-        for (Item item : collection) {
-            if (item.getId() == id) {
-                return index;
+        for (int i = 0; i < collection.size(); i++) {
+            if (collection.get(i).getId() == id) {
+                return i;
             }
-            index++;
         }
         return -1;
     }
@@ -53,23 +46,17 @@ public class Tracker {
     public boolean replace(int id, Item item) {
         int index = indexOf(id);
         boolean result = index != -1;
-        for (Item rep : collection) {
-            if (rep.getId() == id) {
-                collection.remove(rep);
-                collection.add(item);
-                break;
-            }
+        if (result) {
+            item.setId(id);
+            collection.set(index, item);
         }
         return result;
     }
 
     public void delete(int id) {
         int index = indexOf(id);
-        for (Item rep : collection) {
-            if (index != -1 && rep.getId() == id) {
-                collection.remove(rep);
-                break;
-            }
+        if (index != -1) {
+            collection.remove(index);
         }
 
     }
