@@ -1,8 +1,13 @@
 package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
+import ru.job4j.collection.Order;
 
+import java.util.Collections;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -113,5 +118,20 @@ public class TrackerTest {
         tracker.add(item);
         tracker.delete(1000);
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo("Bug");
+    }
+
+    @Test
+    public void whenSort() {
+        List<Item> items = new ArrayList<>();
+        List<Item> expected = new ArrayList<>();
+        items.add(new Item("Albert", 1));
+        items.add(new Item("Masha", 2));
+        items.add(new Item("Igor", 3));
+        items.add(new Item("Sasha", 4));
+        Collections.sort(items, new ItemAscByName());
+        expected.add(new Item("Albert", 1));
+        expected.add(new Item("Igor", 3));
+        expected.add(new Item("Masha", 2));
+        expected.add(new Item("Sasha", 4));
     }
 }
