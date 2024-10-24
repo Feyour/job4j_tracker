@@ -123,15 +123,19 @@ public class TrackerTest {
     @Test
     public void whenSort() {
         List<Item> items = new ArrayList<>();
-        List<Item> expected = new ArrayList<>();
         items.add(new Item("Albert", 1));
         items.add(new Item("Masha", 2));
         items.add(new Item("Igor", 3));
         items.add(new Item("Sasha", 4));
+
         Collections.sort(items, new ItemAscByName());
+
+        List<Item> expected = new ArrayList<>();
         expected.add(new Item("Albert", 1));
         expected.add(new Item("Igor", 3));
         expected.add(new Item("Masha", 2));
         expected.add(new Item("Sasha", 4));
+
+        assertThat(expected).isEqualTo(items);
     }
 }
