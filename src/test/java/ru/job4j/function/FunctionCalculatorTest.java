@@ -23,6 +23,7 @@ class FunctionCalculatorTest {
         List<Double> expected = Arrays.asList(51D, 73D, 99D);
         assertThat(result).containsAll(expected);
     }
+
     @Test
     void whenLinearFunctionThenIndicativeResults() {
         FunctionCalculator function = new FunctionCalculator();
