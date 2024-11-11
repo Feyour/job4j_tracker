@@ -37,8 +37,8 @@ public class AnalyzeByMap {
         Map<String, Integer> counts = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                scores.put(subject.name(), scores.getOrDefault(subject.name(), 0.0) + subject.score());
-                counts.put(subject.name(), counts.getOrDefault(subject.name(), 0) + 1);
+                scores.merge(subject.name(), (double) subject.score(), Double::sum);
+                counts.merge(subject.name(), 1, Integer::sum);
             }
         }
         for (Map.Entry<String, Double> entry : scores.entrySet()) {
@@ -65,12 +65,11 @@ public class AnalyzeByMap {
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
-        BiFunction<Double, Double, Double> function = (oldValue, newValue) -> oldValue - newValue;
         List<Label> result = new ArrayList<>();
         Map<String, Double> scores = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                scores.merge(subject.name(), (double) subject.score(), function);
+                scores.merge(subject.name(), (double) subject.score(), Double::sum);
             }
         }
         for (Map.Entry<String, Double> entry : scores.entrySet()) {
